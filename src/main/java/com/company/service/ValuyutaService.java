@@ -1,5 +1,6 @@
-package com.company.dto;
+package com.company.service;
 
+import com.company.dto.RateDTO;
 import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,84 +16,32 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class ValuyutaKurslari {
+public class ValuyutaService {
 
     private LocalDate localDate = LocalDate.now();
 
     private RateDTO usb = getDolar("USD", localDate.toString());
-
     private RateDTO cny = getDolar("CNY", localDate.toString());
-
     private RateDTO eur = getDolar("EUR", localDate.toString());
-
     private RateDTO gbp = getDolar("GBP", localDate.toString());
-
     private RateDTO rub = getDolar("RUB", localDate.toString());
-
     private RateDTO jpy = getDolar("JPY", localDate.toString());
-
     private RateDTO chf = getDolar("CHF", localDate.toString());
-
     private RateDTO kzt = getDolar("KZT", localDate.toString());
-
     private RateDTO sgd = getDolar("SGD", localDate.toString());
-
     private RateDTO brl = getDolar("BRL", localDate.toString());
-
-/*
-
-    public RateDTO getUsb() {
-        return usb;
-    }
-
-
-    public RateDTO getCny() {
-        return cny;
-    }
-
-
-    public RateDTO getEur() {
-        return eur;
-    }
-
-
-    public RateDTO getGbp() {
-        return gbp;
-    }
-
-
-    public RateDTO getRub() {
-        return rub;
-    }
-
-
-    public RateDTO getJpy() {
-        return jpy;
-    }
-
-
-    public RateDTO getChf() {
-        return chf;
-    }
-
-
-    public RateDTO getKzt() {
-        return kzt;
-    }
-
-
-    public RateDTO getSgd() {
-        return sgd;
-    }
-
-    public RateDTO getBrl() {
-        return brl;
-    }
-*/
 
 
     public String print(RateDTO rateDTO) {
-        return ("🏦   " + "Markaziy  bankning  yangilangan  vaqti   " + "\uD83D\uDD5B    " + rateDTO.getDate() + "  \nBugun  1 " + rateDTO.getCcyNm_UZ() + "   " + rateDTO.getRate()) + "  sumni tashkil etmoqda";
+        return ("🏦   "
+                + "Markaziy  bankning  yangilangan  vaqti   "
+                + "\uD83D\uDD5B    "
+                + rateDTO.getDate()
+                + "  \nBugun  1 "
+                + rateDTO.getCcyNm_UZ()
+                + "   "
+                + rateDTO.getRate())
+                + "  sumni tashkil etmoqda";
     }
 
 
@@ -134,5 +83,4 @@ public class ValuyutaKurslari {
         }
         return str;
     }
-
 }

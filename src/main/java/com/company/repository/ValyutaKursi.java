@@ -1,7 +1,7 @@
 package com.company.repository;
 
-import com.company.dto.ValuyutaKurslari;
+import com.company.service.ValuyutaService;
 
 public interface ValyutaKursi {
-    ValuyutaKurslari valuyutaKurslari = new ValuyutaKurslari();
+    ValuyutaService valuyutaKurslari = new ValuyutaService();
 }

@@ -1,6 +1,6 @@
 package com.company.service;
 
-import com.company.controller.ControllerCompanet;
+import com.company.controller.RateController;
 import com.company.repository.ValyutaKursi;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -16,7 +16,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TelegramBOT extends TelegramLongPollingBot {
+public class TelegramService extends TelegramLongPollingBot {
     private String toMessage = "";
 
 
@@ -39,7 +39,6 @@ public class TelegramBOT extends TelegramLongPollingBot {
         Message message = null;
         if (update.hasCallbackQuery()) {
             getCollbackQuery(update);
-
         } else {
             message = update.getMessage();
             String text = message.getText();
@@ -48,12 +47,12 @@ public class TelegramBOT extends TelegramLongPollingBot {
                 getSendMessage(message);
             } else if (toMessage.equals("som")) {
                 toMessage = "";
-                Double money = ValyutaKursi.valuyutaKurslari.convertor(ControllerCompanet.BankKurs, Double.valueOf(text));
-                sendMessage.setText(text + "  so`m " + "  ➖➖➖   " + String.valueOf(money)+"   ga teng");
+                Double money = ValyutaKursi.valuyutaKurslari.convertor(RateController.BankKurs, Double.valueOf(text));
+                sendMessage.setText(text + "  so`m " + "  ➖➖➖   " + String.valueOf(money) + "   ga teng");
                 sendMessagePrint(sendMessage);
             } else if (toMessage.equals("valyuta")) {
                 toMessage = "";
-                Double money = ValyutaKursi.valuyutaKurslari.convertorSUM(ControllerCompanet.BankKurs, Double.valueOf(text));
+                Double money = ValyutaKursi.valuyutaKurslari.convertorSUM(RateController.BankKurs, Double.valueOf(text));
                 sendMessage.setText(text + "  ➖➖➖   " + String.valueOf(money) + "  so`m ga teng");
                 sendMessagePrint(sendMessage);
             } else {
@@ -73,15 +72,6 @@ public class TelegramBOT extends TelegramLongPollingBot {
     }
 
 
-    public void editMessagePrint(EditMessageText editMessageText) {
-        try {
-            execute(editMessageText);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public void getCollbackQuery(Update update) {
 
         User user = null;
@@ -90,39 +80,39 @@ public class TelegramBOT extends TelegramLongPollingBot {
         String date = callbackQuery.getData();
         user = callbackQuery.getFrom();
         message = callbackQuery.getMessage();
-        SendMessage sendMessage =  new SendMessage();
+        SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(String.valueOf(message.getChatId()));
         if (date.equals("usd")) {
             getNewSedMessage(message, ValyutaKursi.valuyutaKurslari.print(ValyutaKursi.valuyutaKurslari.getUsb()));
-            ControllerCompanet.BankKurs = ValyutaKursi.valuyutaKurslari.getUsb();
+            RateController.BankKurs = ValyutaKursi.valuyutaKurslari.getUsb();
         } else if (date.equals("cny")) {
             getNewSedMessage(message, ValyutaKursi.valuyutaKurslari.print(ValyutaKursi.valuyutaKurslari.getCny()));
-            ControllerCompanet.BankKurs = ValyutaKursi.valuyutaKurslari.getCny();
+            RateController.BankKurs = ValyutaKursi.valuyutaKurslari.getCny();
         } else if (date.equals("eur")) {
             getNewSedMessage(message, ValyutaKursi.valuyutaKurslari.print(ValyutaKursi.valuyutaKurslari.getEur()));
-            ControllerCompanet.BankKurs = ValyutaKursi.valuyutaKurslari.getEur();
-        }else if (date.equals("gbp")) {
+            RateController.BankKurs = ValyutaKursi.valuyutaKurslari.getEur();
+        } else if (date.equals("gbp")) {
             getNewSedMessage(message, ValyutaKursi.valuyutaKurslari.print(ValyutaKursi.valuyutaKurslari.getGbp()));
-            ControllerCompanet.BankKurs = ValyutaKursi.valuyutaKurslari.getGbp();
-        }else if (date.equals("rub")) {
+            RateController.BankKurs = ValyutaKursi.valuyutaKurslari.getGbp();
+        } else if (date.equals("rub")) {
             getNewSedMessage(message, ValyutaKursi.valuyutaKurslari.print(ValyutaKursi.valuyutaKurslari.getRub()));
-            ControllerCompanet.BankKurs = ValyutaKursi.valuyutaKurslari.getRub();
-        }else if (date.equals("jpy")) {
+            RateController.BankKurs = ValyutaKursi.valuyutaKurslari.getRub();
+        } else if (date.equals("jpy")) {
             getNewSedMessage(message, ValyutaKursi.valuyutaKurslari.print(ValyutaKursi.valuyutaKurslari.getJpy()));
-            ControllerCompanet.BankKurs = ValyutaKursi.valuyutaKurslari.getJpy();
-        }else if (date.equals("chf")) {
+            RateController.BankKurs = ValyutaKursi.valuyutaKurslari.getJpy();
+        } else if (date.equals("chf")) {
             getNewSedMessage(message, ValyutaKursi.valuyutaKurslari.print(ValyutaKursi.valuyutaKurslari.getChf()));
-            ControllerCompanet.BankKurs = ValyutaKursi.valuyutaKurslari.getChf();
-        }else if (date.equals("kzt")) {
+            RateController.BankKurs = ValyutaKursi.valuyutaKurslari.getChf();
+        } else if (date.equals("kzt")) {
             getNewSedMessage(message, ValyutaKursi.valuyutaKurslari.print(ValyutaKursi.valuyutaKurslari.getKzt()));
-            ControllerCompanet.BankKurs = ValyutaKursi.valuyutaKurslari.getKzt();
-        }else if (date.equals("sgd")) {
+            RateController.BankKurs = ValyutaKursi.valuyutaKurslari.getKzt();
+        } else if (date.equals("sgd")) {
             getNewSedMessage(message, ValyutaKursi.valuyutaKurslari.print(ValyutaKursi.valuyutaKurslari.getSgd()));
-            ControllerCompanet.BankKurs = ValyutaKursi.valuyutaKurslari.getSgd();
-        }else if (date.equals("brl")) {
+            RateController.BankKurs = ValyutaKursi.valuyutaKurslari.getSgd();
+        } else if (date.equals("brl")) {
             getNewSedMessage(message, ValyutaKursi.valuyutaKurslari.print(ValyutaKursi.valuyutaKurslari.getBrl()));
-            ControllerCompanet.BankKurs = ValyutaKursi.valuyutaKurslari.getBrl();
-        }else if (date.equals("nazat")) {
+            RateController.BankKurs = ValyutaKursi.valuyutaKurslari.getBrl();
+        } else if (date.equals("nazat")) {
             getSendMessage(message);
         } else if (date.equals("som")) {
             sendMessage.setText("✒️️ " + " So`mni qiymatini kiriting");
