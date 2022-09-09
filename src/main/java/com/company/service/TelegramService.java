@@ -22,13 +22,13 @@ public class TelegramService extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "++++++  UserName   +++++++";
+        return "@Valyuta_kurs2022_bot";
     }
 
 
     @Override
     public String getBotToken() {
-        return "+++++++  Token  ++++++++";
+        return "5239991194:AAF_3zZ5flEmg204RO1HAYBXkyY5UhC_lgc";
     }
 
 
